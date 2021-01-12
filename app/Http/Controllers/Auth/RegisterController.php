@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['guest']);
+    }
+
     public function index(){
         return view('auth.register');
     }
@@ -19,7 +24,7 @@ class RegisterController extends Controller
             'username' => 'required|max:255',
             'email' => 'required|max:255',
             'password' => 'required|confirmed',
-            'phone' => 'required|digits:10',
+            'phone' => 'required|digits_between:9,20',
         ]);
 
         User::create([
