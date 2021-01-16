@@ -21,16 +21,16 @@
                 </div>
 
                 <div class="mb-4">
-                    <label for="file" class="sr-only">Image</label>
-                    <input type="file" name="title" id="title" placeholder="Post title"
+                    <label for="image" class="sr-only">Image</label>
+                    <input type="file" name="image" id="image" placeholder="Post cover image"
                     class="bg-gray-100 border-2 w-full p-4 rounded-lg">
-                    <span class="items-center text-blue-400">Accepted file type: .jpg only</span>
+                    <span class="items-center text-blue-400">Accepted file types: .jpg .bmp .png only</span>
                 </div>
 
                 <div class="mb-4">
                     <label for="body" class="sr-only">Body</label>
-                    <textarea name="body" id="body" cols="30" rows="10" class="bg-gray-100 border-2 w-full p-4
-                    rounded-lg @error('body') border-red-500 @enderror" placeholder="Post your idea...."></textarea>
+                    <textarea name="body" id="body" cols="30" rows="6" class="bg-gray-100 border-2 w-full p-4
+                    rounded-lg @error('body') border-red-500 @enderror" placeholder="Post your idea...." value="{{old('body')}}"></textarea>
 
                     @error('body')
                         <div class="text-red-500 mt-2 text-sm">
