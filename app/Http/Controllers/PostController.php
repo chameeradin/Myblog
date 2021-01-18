@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -12,7 +13,13 @@ class PostController extends Controller
 
     public function index(){
 
-    return view('posts.index');
+        $posts = Post::get();
+
+        //dd($posts);
+
+        return view('posts.index', [
+            'posts' =>$posts
+        ]);
 
     }
 
@@ -30,8 +37,8 @@ class PostController extends Controller
                 'image' => 'nullable|image|max:1999|mimes:jpeg,bmp,png'
             ]);
 
-            $name = $request->file('image')->getClientOriginalName();
-            $request->file('image')->store('posts', 'public');
+
+            $name = $request->file('image')->store('posts', 'public');
 
 
 
@@ -43,7 +50,7 @@ class PostController extends Controller
 
             ]);
         }
-        return redirect()->route('post');
+        return redirect()->route('post')->with('status', 'Your post has posted!');
     }
 
 }
