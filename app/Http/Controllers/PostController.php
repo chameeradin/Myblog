@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -11,15 +12,21 @@ class PostController extends Controller
         $this->middleware(['auth']);
     }
 
-    public function index(){
+    public function index(User $user, Request $request){
 
-        $posts = Post::get();
+        $posts = Post::latest()->with(['user', 'likes'])->paginate(10);
 
-        //dd($posts);
+
 
         return view('posts.index', [
             'posts' =>$posts
         ]);
+
+    }
+
+    public function create(){
+
+        return view('posts.create');
 
     }
 
@@ -52,5 +59,24 @@ class PostController extends Controller
         }
         return redirect()->route('post')->with('status', 'Your post has posted!');
     }
+
+    public function edit(Post $post){
+
+        $this->authorize('edit', $post);
+
+        return view('posts.edit');
+
+    }
+
+    public function destroy(Post $post){
+
+        $this->authorize('delete', $post);
+
+        $post->delete();
+
+        return back();
+
+    }
+
 
 }
