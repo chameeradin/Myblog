@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -49,8 +50,6 @@ class PostController extends Controller
 
             $name = $request->file('image')->store('posts', 'public');
 
-
-
             $request->user()->posts()->create([
 
                 "title" => $request->get('title'),
@@ -58,11 +57,22 @@ class PostController extends Controller
                 "body"=> $request->get('body'),
 
             ]);
+
+
         }
+        $request->user()->posts()->create([
+
+            "title" => $request->get('title'),
+            "body"=> $request->get('body'),
+
+        ]);
+
         return redirect()->route('post')->with('status', 'Your post has posted!');
     }
 
     public function edit(Post $post){
+
+        dd($post);
 
         $this->authorize('edit', $post);
 
@@ -80,6 +90,7 @@ class PostController extends Controller
 
         $this->authorize('delete', $post);
 
+        Storage::delete($post->image);
         $post->delete();
 
         return redirect()->route('post')->with('status', 'Your post has deleted!');

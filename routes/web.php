@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostLikeController;
 use App\Http\Controllers\UserPostController;
 use App\Http\Controllers\DashboardController;
@@ -43,6 +44,9 @@ Route::post('/posts', [PostController::class, 'store']);
 Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
 Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+
+Route::get('/posts/{post}/comments', [CommentController::class, 'index'])->name('comment');
+Route::get('/posts/{post}/comments/create', [CommentController::class, 'create'])->name('posts.comments.create');
 
 Route::post('/posts/{post}/likes', [PostLikeController::class, 'store'])->name('posts.likes');
 Route::delete('/posts/{post}/likes', [PostLikeController::class, 'destroy'])->name('posts.likes');
