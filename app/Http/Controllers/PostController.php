@@ -24,6 +24,8 @@ class PostController extends Controller
 
     }
 
+
+
     public function create(){
 
         return view('posts.create');
@@ -64,8 +66,14 @@ class PostController extends Controller
 
         $this->authorize('edit', $post);
 
-        return view('posts.edit');
+        return view('');
 
+    }
+
+    public function show(Post $post){
+        return view('posts.show', [
+            'post' =>$post,
+        ]);
     }
 
     public function destroy(Post $post){
@@ -74,7 +82,7 @@ class PostController extends Controller
 
         $post->delete();
 
-        return back();
+        return redirect()->route('post')->with('status', 'Your post has deleted!');
 
     }
 

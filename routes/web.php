@@ -40,7 +40,8 @@ Route::post('/register', [RegisterController::class, 'store']);
 Route::get('/posts', [PostController::class, 'index'])->name('post');
 Route::get('/posts/create', [PostController::class, 'create'])->name('create');
 Route::post('/posts', [PostController::class, 'store']);
-Route::get('/posts/{post}', [PostController::class, 'edit'])->name('posts.edit');
+Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
+Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
 Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
 
 Route::post('/posts/{post}/likes', [PostLikeController::class, 'store'])->name('posts.likes');

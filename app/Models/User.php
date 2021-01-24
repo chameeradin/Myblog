@@ -42,6 +42,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
+
         'email_verified_at' => 'datetime',
     ];
 
@@ -51,6 +52,12 @@ class User extends Authenticatable
     }
 
     public function likes(){
+
         return $this->hasMany(Like::class);
+    }
+
+    public function receivedLikes(){
+
+        return $this->hasManyThrough(Like::class, Post::class);
     }
 }

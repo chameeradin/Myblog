@@ -11,7 +11,7 @@
 
         <header class="flex items-center justify-between leading-tight p-2 md:p-4">
             <h1 class="text-lg">
-                <a class="no-underline hover:underline text-black" href="#">
+                <a class="no-underline hover:underline text-black" href="{{ route('posts.show', $post)}}">
                     {{$post->title}}
                 </a>
             </h1>
@@ -22,7 +22,7 @@
 
         <body class="flex items-center justify-between leading-tight p-4 md:p-4">
             <h1 class="text-md">
-                <p class="ml-4 text-gray" href="#">
+                <p class="ml-4 text-gray">
                     {{$post->body}}
                 </p>
             </h1>
