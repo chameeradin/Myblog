@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 class CommentController extends Controller
 {
 
+    public function __construct(){
+
+        $this->middleware(['auth']);
+    }
+
     public function index(Request $request)
     {
         //
@@ -24,8 +29,22 @@ class CommentController extends Controller
 
 
     public function store(Request $request)
+
     {
-        //
+
+        $this->validate($request, [
+
+            'comment' => 'required|max:200',
+        ]);
+
+        $request->user()->comments()->create([
+
+
+            "comment"=> $request->get('comment'),
+
+        ]);
+
+        return redirect()->route('posts.show')->with('status', 'Your comment has posted!');
     }
 
 

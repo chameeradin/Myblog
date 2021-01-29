@@ -31,7 +31,7 @@
         <footer class="flex items-center justify-between leading-none p-2 md:p-4">
             <div>
                 <a class="flex items-center no-underline hover:underline text-black" href="{{route('users.posts', $post->user)}}">
-                    <img alt="Placeholder" class="block rounded-full h-8 w-8"  src="{{$post->image}}"  onerror="this.src='/storage/posts/user.png'">
+                    <img alt="Placeholder" class="block rounded-full h-8 w-8"  src="/storage/{{$post->user->avatar}}"  onerror="this.src='/storage/posts/user.png'">
                     <p class="ml-2 text-sm">
                         {{$post->user->name}}
                     </p>
@@ -84,12 +84,9 @@
             </div>
             <div>
                 <div class="flex items-center text-sm">
-                    <form action="{{ route('posts.comments.create', $post)}}" method="get" class="mr-1">
-                        @csrf
-                        <button type="submit" class="flex items-center justify-between"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
-                        </svg>Comments</button>
-                    </form>
+                    <a class="no-underline hover:underline flex items-center justify-between" href="{{ route('posts.show', $post)}}"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                    </svg>Comments</a>
                 </div>
             </div>
         </footer>

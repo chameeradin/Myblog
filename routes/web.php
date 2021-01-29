@@ -2,12 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostLikeController;
 use App\Http\Controllers\UserPostController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\PostCommentController;
 use App\Http\Controllers\Auth\RegisterController;
 
 /*
@@ -38,6 +39,9 @@ Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::post('/register', [RegisterController::class, 'store']);
 
 
+Route::get('/profile/{user:username}', [ProfileController::class, 'index'])->name('profile.user');
+Route::post('/profile/{user}', [ProfileController::class, 'update'])->name('profile.update');
+
 Route::get('/posts', [PostController::class, 'index'])->name('post');
 Route::get('/posts/create', [PostController::class, 'create'])->name('create');
 Route::post('/posts', [PostController::class, 'store']);
@@ -45,8 +49,10 @@ Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show')
 Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
 Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
 
-Route::get('/posts/{post}/comments', [CommentController::class, 'index'])->name('comment');
-Route::get('/posts/{post}/comments/create', [CommentController::class, 'create'])->name('posts.comments.create');
+
+// Route::post('/posts/{comment}', [PostCommentController::class, 'index'])->name('comment');
+Route::post('/posts/{post}/comments', [PostCommentController::class, 'store'])->name('comment');
+
 
 Route::post('/posts/{post}/likes', [PostLikeController::class, 'store'])->name('posts.likes');
 Route::delete('/posts/{post}/likes', [PostLikeController::class, 'destroy'])->name('posts.likes');

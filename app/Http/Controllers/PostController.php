@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -60,12 +61,15 @@ class PostController extends Controller
 
 
         }
-        $request->user()->posts()->create([
+        else{
+            $request->user()->posts()->create([
 
-            "title" => $request->get('title'),
-            "body"=> $request->get('body'),
+                "title" => $request->get('title'),
+                "body"=> $request->get('body'),
 
-        ]);
+            ]);
+        }
+
 
         return redirect()->route('post')->with('status', 'Your post has posted!');
     }
@@ -80,10 +84,17 @@ class PostController extends Controller
 
     }
 
-    public function show(Post $post){
+    public function show(Post $post, Request $request){
+
+        $comments = Comment::where('post_id', $post);
+        $comments = Comment::latest()->with('comments');
+
         return view('posts.show', [
             'post' =>$post,
+            'comments' => $comments,
+
         ]);
+
     }
 
     public function destroy(Post $post){
