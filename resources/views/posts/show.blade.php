@@ -9,10 +9,10 @@
 
         <div class="w-8/12 bg-white p-6 rounded-lg">
             <h1 class="text-center mb-6 text-bold-500">Write a comment</h1>
-            @if(session('status'))
-                <div class="alert alert-success bg-success text-center">
-                    {{ session('status') }}
-                </div>
+            @if (session('status'))
+            <div class="bg-green-400 p-4 rounded-lg mb-6 text-white text-center">
+                {{session('status')}}
+            </div>
             @endif
 
             <form action="{{route('comment', $post)}}" method="post">

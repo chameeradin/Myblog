@@ -71,16 +71,17 @@ class PostController extends Controller
         }
 
 
-        return redirect()->route('post')->with('status', 'Your post has posted!');
+        return redirect()->route('post')->with('status', 'Your post has been posted!');
     }
 
     public function edit(Post $post){
 
-        dd($post);
 
         $this->authorize('edit', $post);
 
-        return view('');
+        return view('posts.edit', [
+            'post' => $post,
+        ]);
 
     }
 
@@ -97,6 +98,45 @@ class PostController extends Controller
 
     }
 
+    public function update(Request $request, $id){
+
+        $this->validate($request, [
+            'title' => 'required|max:255',
+            'body' => 'required|min:10|max:1000',
+        ]);
+
+        if ($request->hasFile('image')) {
+
+            $request->validate([
+                'image' => 'nullable|image|max:1999|mimes:jpeg,bmp,png'
+            ]);
+
+
+
+            $image = $request->file('image')->store('posts', 'public');
+
+            $post = Post::find($id);
+                $post->title = $request->title;
+                Storage::delete($post->avatar);
+                $post->image = $image;
+                $post->body = $request->body;
+                $post->save();
+
+
+        }
+        else{
+
+            $post = Post::find($id);
+                $post->title = $request->title;
+                $post->body = $request->body;
+                $post->save();
+        }
+
+
+        return redirect()->route('post')->with('status', 'Your post has been updated!');
+
+    }
+
     public function destroy(Post $post){
 
         $this->authorize('delete', $post);
@@ -104,7 +144,7 @@ class PostController extends Controller
         Storage::delete($post->image);
         $post->delete();
 
-        return redirect()->route('post')->with('status', 'Your post has deleted!');
+        return redirect()->route('post')->with('alert', 'Your post has deleted!');
 
     }
 

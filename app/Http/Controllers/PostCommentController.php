@@ -40,7 +40,7 @@ class PostCommentController extends Controller
 
         ]);
 
-        return back()->with('status', 'Your comment has posted!');
+        return back()->with('status', 'Your comment has been posted!');
     }
 
 

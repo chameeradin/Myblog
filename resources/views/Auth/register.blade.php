@@ -4,6 +4,11 @@
 @section('content')
     <div class="flex justify-center">
         <div class="w-4/12 bg-white p-6 rounded-lg">
+            @if (session('alert'))
+            <div class="bg-red-500 p-4 rounded-lg mb-6 text-white text-center">
+                {{session('alert')}}
+            </div>
+            @endif
             <form action="{{route('register')}}" method="post">
                 @csrf
                 <div class="mb-4">

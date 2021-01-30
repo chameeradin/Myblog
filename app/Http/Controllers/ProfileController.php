@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Redirect;
 
 class ProfileController extends Controller
 {
@@ -45,6 +47,7 @@ class ProfileController extends Controller
             ]);
 
 
+
             $avatar = $request->file('avatar')->store('users', 'public');
 
             $user = User::find($id);
@@ -54,6 +57,7 @@ class ProfileController extends Controller
                 $user->email = $request->email;
                 $user->password = Hash::make($request->password);
                 $user->phone = $request->phone;
+                Storage::delete($user->avatar);
                 $user->avatar = $avatar;
                 $user->save();
 
@@ -75,6 +79,20 @@ class ProfileController extends Controller
 
         }
 
-        return redirect('dashboard')->with('status', 'Your account has updated');
+        return redirect('dashboard')->with('status', 'Your account has been updated!');
+    }
+
+    public function destroy(User $user){
+
+
+
+        $user = User::find(Auth::user()->id);
+
+        Auth::logout();
+        Storage::delete($user->avatar);
+        if ($user->delete()) {
+
+            return redirect('register')->with('alert', 'Your account has been deleted!');
+        }
     }
 }
