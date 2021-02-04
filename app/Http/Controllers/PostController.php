@@ -87,12 +87,11 @@ class PostController extends Controller
 
     public function show(Post $post, Request $request){
 
-        $comments = Comment::where('post_id', $post);
-        $comments = Comment::latest()->with('comments');
+        $comments = $post->comments;
 
         return view('posts.show', [
             'post' =>$post,
-            'comments' => $comments,
+            'comments' =>$comments,
 
         ]);
 

@@ -32,18 +32,18 @@
                     <button type="submit" class="inline-flex item-center bg-blue-500 text-white px-4 py-3 rounded font-medium items-right">Post</button>
                 </div>
             </form>
-        </div>
-        <div>
-            {{-- <span>{{ $comment->comments->count()}} {{ Str::plural('comment', $comment->comments->count())}}</span> --}}
+            <div class="p-4">
+                {{-- <span>{{ $comment->comments->count()}} {{ Str::plural('comment', $comment->comments->count())}}</span> --}}
 
-            @if($comments->count())
-                @foreach ($comments as $comment)
-                    hello
-                @endforeach
-            @else
+                @if($comments->count())
+                    @foreach ($comments as $comment)
+                    <x-comment :comment="$comment"/>
+                    @endforeach
+                @else
 
-                <p> Thare are no comment</p>
-            @endif
+                    <p> Thare are no comment</p>
+                @endif
+            </div>
         </div>
 
     </div>
