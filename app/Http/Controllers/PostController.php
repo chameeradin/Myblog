@@ -115,20 +115,20 @@ class PostController extends Controller
             $image = $request->file('image')->store('posts', 'public');
 
             $post = Post::find($id);
-                $post->title = $request->title;
-                Storage::delete($post->avatar);
-                $post->image = $image;
-                $post->body = $request->body;
-                $post->save();
+            $post->title = $request->title;
+            Storage::delete($post->avatar);
+            $post->image = $image;
+            $post->body = $request->body;
+            $post->save();
 
 
         }
         else{
 
             $post = Post::find($id);
-                $post->title = $request->title;
-                $post->body = $request->body;
-                $post->save();
+            $post->title = $request->title;
+            $post->body = $request->body;
+            $post->save();
         }
 
 
@@ -143,7 +143,7 @@ class PostController extends Controller
         Storage::delete($post->image);
         $post->delete();
 
-        return redirect()->route('post')->with('alert', 'Your post has deleted!');
+        return redirect()->route('post')->with('alert', 'Your post has been deleted!');
 
     }
 

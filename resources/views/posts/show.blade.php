@@ -4,16 +4,22 @@
 @section('content')
     <div class="flex justify-center">
         <div class="lg:w-8/12  bg-white p-6 rounded-lg">
+            <h1 class="text-center mb-6 text-2xl font-medium">Post</h1>
+            @if (session('status'))
+                <div class="bg-green-400 p-4 rounded-lg mb-6 text-white text-center">
+                    {{session('status')}}
+                </div>
+                @elseif(session('alert'))
+                <div class="bg-red-500 p-4 rounded-lg mb-6 text-white text-center">
+                    {{session('alert')}}
+                </div>
+                @endif
             <div>
                 <x-post :post="$post"/>
             </div>
             <div class="bg-white p-6 rounded-lg">
                 <h1 class="text-center mb-6 text-bold-500">Write a comment</h1>
-                @if (session('status'))
-                <div class="bg-green-400 p-4 rounded-lg mb-6 text-white text-center">
-                    {{session('status')}}
-                </div>
-                @endif
+
 
                 <form action="{{route('comment', $post)}}" method="post">
 
