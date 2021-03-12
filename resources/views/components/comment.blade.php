@@ -1,6 +1,6 @@
 @props(['comment' => $comment])
 
-<div class="my-1 pb-6 px-1 w-full lg:my-4 lg:px-4">
+<div class="my-1 pb-2 px-1 w-full lg:my-4 lg:px-4">
 
 
     <article class="rounded shadow">
@@ -46,5 +46,22 @@
                 @endcan
             </div>
         </footer>
+        <div class="replyComment">
+            <form action="{{route('secondComment', $comment)}}" method="post">
+
+                @csrf
+                <div class="mb-4">
+
+                    <input type="text" name="secondComment" id="secondComment" placeholder="Reply"
+                    class="bg-gray-100 border-1 w-10/12 p-2 rounded-lg @error('secondComment') border-red-500 @enderror" value="{{old('secondComment')}}">
+                    @error('secondComment')
+                        <div class="text-red-500 mt-2 text-sm">
+                            {{ $message}}
+                        </div>
+                    @enderror
+                    <button type="submit" class="inline-flex item-center bg-blue-500 text-white px-2 py-1 rounded font-medium items-right">Reply</button>
+                </div>
+            </form>
+        </div>
     </article>
 </div>

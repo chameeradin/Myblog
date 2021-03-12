@@ -43,7 +43,21 @@
 
                     @if($comments->count())
                         @foreach ($comments as $comment)
-                        <x-comment :comment="$comment"/>
+                        <article class="rounded shadow  bg-gray-100">
+                            <x-comment :comment="$comment"/>
+
+                            <hr>
+                            <ul>
+                                @foreach ($secondComments as $secondComment)
+                                    @if($comment->id == $secondComment->comment_id )
+                                <li class="pl-8 py-1 font-small">
+                                    <x-secondComment :secondComment="$secondComment"/>
+                                </li>
+
+                                    @endif
+                                @endforeach
+                            </ul>
+                        </article>
                         @endforeach
                     @else
 

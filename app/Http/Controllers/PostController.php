@@ -88,10 +88,12 @@ class PostController extends Controller
     public function show(Post $post, Request $request){
 
         $comments = $post->comments;
+        $secondComments = $post->secondComments;
 
         return view('posts.show', [
             'post' =>$post,
             'comments' =>$comments,
+            'secondComments' => $secondComments,
 
         ]);
 

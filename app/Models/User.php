@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Like;
 use App\Models\Post;
 use App\Models\Comment;
+use App\Models\SecondComment;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -70,5 +71,10 @@ class User extends Authenticatable
     public function receivedComments(){
 
         return $this->hasManyThrough(Comment::class, Post::class);
+    }
+
+    public function secondComments()
+    {
+        return $this->hasMany(SecondComment::class);
     }
 }

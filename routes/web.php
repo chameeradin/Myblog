@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\PostCommentController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\SecondCommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,4 +62,7 @@ Route::delete('/comments/{comment}', [PostCommentController::class, 'destroy'])-
 Route::post('/posts/{post}/likes', [PostLikeController::class, 'store'])->name('posts.likes');
 Route::delete('/posts/{post}/likes', [PostLikeController::class, 'destroy'])->name('posts.likes');
 
+
+Route::post('/comment/{comment}/secondComments', [SecondCommentController::class, 'store'])->name('secondComment');
+Route::delete('/secondComments/{secondComment}', [SecondCommentController::class, 'destroy'])->name('secondComment.destroy');
 
